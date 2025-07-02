@@ -361,10 +361,10 @@ def main():
                 generar_html_calendario(votes_data["calendar"], votes_data["current_calendar_month"])
                 logging.info(f"HTML de calendario generado correctamente en: {OUTPUT_CALENDAR_HTML}")
 
-                # Ejecutar comandos Git
-                # run_git_command("add", "") # Estos comandos los ejecutarás manualmente una vez configurado Git
-                # run_git_command("commit", f"Actualización automática de calendario ({contenido_actual})")
-                # run_git_command("push", "")
+                 Ejecutar comandos Git
+                 run_git_command("add", "") # Estos comandos los ejecutarás manualmente una vez configurado Git
+                 run_git_command("commit", f"Actualización automática de calendario ({contenido_actual})")
+                 run_git_command("push", "")
                 logging.info("Los comandos Git han sido deshabilitados en el script. Por favor, inicializa el repositorio Git manualmente y luego ejecuta los comandos `git add .`, `git commit` y `git push`.")
                 
                 last_content_read = contenido_actual # Actualizar el último contenido procesado
