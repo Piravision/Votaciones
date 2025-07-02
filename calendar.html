@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario de Películas Votadas - Julio 2025</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0c0c0c;
+            color: #f4f4f4;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #1f1f1f;
+            padding: 10px 20px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            max-height: 160px;
+            height: auto;
+            width: auto;
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                max-height: 120px;
+            }
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            color: #f4f4f4;
+            font-size: 24px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-icon:hover {
+            color: #00ff00;
+        }
+
+        /* Contenedor principal de la página. Redefinido para el calendario */
+        .container {
+            max-width: 1200px; /* Ajustado para un calendario más ancho */
+            margin: 20px auto; /* Usamos el margen para centrar */
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+            position: relative;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.15; /* Ajusta la opacidad si es necesario */
+            z-index: -1;
+            border-radius: 10px;
+        }
+
+        /* Títulos de sección. Redefinido para el calendario */
+        h1 {
+            color: #ff9900;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        .month-header {
+            font-size: 2.2em;
+            color: #00ff00;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+        }
+
+        /* Estilos de cuadrícula para el calendario */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .day-entry {
+            background: #1f1f1f;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+        }
+        .day-header {
+            font-size: 1.3em;
+            color: #ffcc00;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #555;
+            padding-bottom: 8px;
+            font-weight: bold;
+        }
+        .slot-entry {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #444;
+        }
+        .slot-entry:first-child {
+            border-top: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        .slot-title {
+            font-size: 1.05em;
+            color: #aaffaa;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .movie-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 5px;
+        }
+        .movie-poster {
+            width: 70px; /* Tamaño un poco más pequeño para el calendario */
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #666;
+            flex-shrink: 0; /* Evita que el póster se encoja */
+        }
+        .movie-details {
+            flex-grow: 1;
+        }
+        .movie-details p {
+            margin: 0;
+            font-size: 0.95em;
+        }
+        .movie-details .title-year {
+            font-weight: bold;
+            color: #f4f4f4;
+            margin-bottom: 3px;
+        }
+        .movie-details .rating {
+            color: #00ffff;
+            font-size: 1.05em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .no-content {
+            font-style: italic;
+            color: #888;
+            font-size: 0.9em;
+            margin-left: 5px;
+        }
+        /* Enlaces de navegación */
+        .nav-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .nav-links a {
+            color: #ff9900;
+            text-decoration: none;
+            font-size: 1.2em;
+            margin: 0 15px;
+            padding: 8px 15px;
+            border: 1px solid #ff9900;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .nav-links a:hover {
+            background-color: #ff9900;
+            color: #0c0c0c;
+        }
+
+        /* Eliminados estilos no usados por el calendario pero presentes en la cabecera original,
+           como .movie-info, .poster, .data, .synopsis, .cast-section, .vote-section, .series-info
+           para evitar confusión, aunque el head original los contenía.
+           Los estilos relevantes para el calendario se mantienen y adaptan.
+        */
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Historial de Votaciones</h1>
+        <div class="month-header">Julio 2025</div>
+        
+        <div class="calendar-grid">
+            
+            <div class="day-entry">
+                <div class="day-header">Martes, 01</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Miã©rcoles, 02</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Jueves, 03</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Viernes, 04</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Sã¡bado, 05</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Domingo, 06</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Lunes, 07</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Martes, 08</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Miã©rcoles, 09</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Jueves, 10</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Viernes, 11</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Sã¡bado, 12</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Domingo, 13</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Lunes, 14</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Martes, 15</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Miã©rcoles, 16</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Jueves, 17</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Viernes, 18</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Sã¡bado, 19</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Domingo, 20</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Lunes, 21</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Martes, 22</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Miã©rcoles, 23</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Jueves, 24</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Viernes, 25</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Sã¡bado, 26</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Domingo, 27</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Lunes, 28</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Martes, 29</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Miã©rcoles, 30</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+            <div class="day-entry">
+                <div class="day-header">Jueves, 31</div>
+                
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Sobremesa:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+                <div class="slot-entry">
+                    <div class="slot-title">Noche de Cine:</div>
+                    
+                    
+                    <p class="no-content">No hay contenido programado.</p>
+                    
+                </div>
+                
+            </div>
+            
+        </div>
+
+        <div class="nav-links">
+            </div>
+    </div>
+</body>
+</html>

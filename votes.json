@@ -1,0 +1,17 @@
+{
+    "current_calendar_month": "2025-07",
+    "current_movie_info": {
+        "title": "Encuentros en la tercera fase",
+        "year": "1977",
+        "tmdb_id": 840,
+        "poster_url": "https://image.tmdb.org/t/p/w185/btE3LrMhuFa8sfPGxHRC4hGyEjr.jpg",
+        "time_slot": "Sobremesa",
+        "start_time": "2025-07-03T00:45:22.896804"
+    },
+    "votes_for_current_movie": {
+        "total_score": 0,
+        "num_votes": 0,
+        "voters": []
+    },
+    "calendar": {}
+}
