@@ -32,7 +32,7 @@ API_KEY = config['TMDB']['api_key']
 
 # Rutas para el nuevo proyecto de calendario
 BASE_DIR = os.path.join('G:', os.sep, 'INFOPIRA', 'BOT', 'VOTACIONES')
-INPUT_FILE = os.path.join(BASE_DIR, 'tuna.txt')
+INPUT_FILE = os.path.join('C:', os.sep, 'Users', 'karlo', 'Documents', 'tuna3.txt')
 OUTPUT_CALENDAR_HTML = os.path.join(BASE_DIR, 'index.html') # CAMBIO AQUÍ: calendar.html a index.html
 VOTES_FILE = os.path.join(BASE_DIR, 'votes.json')
 TEMPLATE_CALENDAR_HTML = os.path.join(BASE_DIR, 'template_calendario.html')

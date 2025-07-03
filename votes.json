@@ -1,12 +1,12 @@
 {
     "current_calendar_month": "2025-07",
     "current_movie_info": {
-        "title": "Akira",
-        "year": "1988",
-        "tmdb_id": 149,
-        "poster_url": "https://image.tmdb.org/t/p/w185/vjPt8HYymLOkRv82x9JwVO7M2a5.jpg",
+        "title": "Zathura: Una aventura espacial",
+        "year": "2005",
+        "tmdb_id": 6795,
+        "poster_url": "https://image.tmdb.org/t/p/w185/8ePd8jBizl04Di7N4VnhD5tXSCo.jpg",
         "time_slot": "Sobremesa",
-        "start_time": "2025-07-03T16:39:02.005587"
+        "start_time": "2025-07-03T16:46:16.049002"
     },
     "votes_for_current_movie": {
         "total_score": 0,
