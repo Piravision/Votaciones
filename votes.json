@@ -1,17 +1,74 @@
 {
     "current_calendar_month": "2025-07",
     "current_movie_info": {
-        "title": "Encuentros en la tercera fase",
-        "year": "1977",
-        "tmdb_id": 840,
-        "poster_url": "https://image.tmdb.org/t/p/w185/btE3LrMhuFa8sfPGxHRC4hGyEjr.jpg",
+        "title": "Akira",
+        "year": "1988",
+        "tmdb_id": 149,
+        "poster_url": "https://image.tmdb.org/t/p/w185/vjPt8HYymLOkRv82x9JwVO7M2a5.jpg",
         "time_slot": "Sobremesa",
-        "start_time": "2025-07-03T00:53:43.889248"
+        "start_time": "2025-07-03T16:39:02.005587"
     },
     "votes_for_current_movie": {
         "total_score": 0,
         "num_votes": 0,
-        "voters": []
+        "voters": [],
+        "detailed_votes": []
     },
-    "calendar": {}
+    "calendar": {
+        "2025-07-01": {
+            "Sobremesa": {
+                "title": "Ice Age 2: El deshielo",
+                "year": "2006",
+                "poster_url": "https://image.tmdb.org/t/p/w185/87d7l6vX9s0QJp19iP64j2U1B6H.jpg",
+                "final_rating": 7.5,
+                "tmdb_id": 950
+            },
+            "Noche de Cine": {
+                "title": "Tibur\u00f3n",
+                "year": "1975",
+                "poster_url": "https://image.tmdb.org/t/p/w185/l1LCHqP64Q222Vf0m2rI04yCq19.jpg",
+                "final_rating": 8.0,
+                "tmdb_id": 578
+            }
+        },
+        "2025-07-02": {
+            "Sobremesa": {
+                "title": "Peque\u00f1os guerreros",
+                "year": "1998",
+                "poster_url": "https://image.tmdb.org/t/p/w185/m1vVbL8u8c6e2U741F1bQ1m9XoN.jpg",
+                "final_rating": 7.2,
+                "tmdb_id": 8940
+            },
+            "Noche de Cine": {
+                "title": "Encuentros en la tercera fase",
+                "year": "1977",
+                "poster_url": "https://image.tmdb.org/t/p/w185/dQjmI7XxI47v8IM2MUysHG0LuU2.jpg",
+                "final_rating": 8.5,
+                "tmdb_id": 1698
+            }
+        },
+        "2025-07-03": {
+            "Sobremesa": {
+                "title": "Akira",
+                "year": "1988",
+                "poster_url": "https://image.tmdb.org/t/p/w185/vjPt8HYymLOkRv82x9JwVO7M2a5.jpg",
+                "final_rating": 7.47,
+                "tmdb_id": 149
+            },
+            "Noche de Cine": null
+        }
+    },
+    "global_user_votes": {
+        "Pira": 3,
+        "Migueltorrezno": 4,
+        "Rosahm1": 2,
+        "srsuricat0": 3,
+        "Criug": 4,
+        "alvaropt83": 3,
+        "GaldorCid": 2,
+        "Piranya69": 4,
+        "Afr0samuray": 4,
+        "GaldorCID": 2,
+        "Huete86": 2
+    }
 }

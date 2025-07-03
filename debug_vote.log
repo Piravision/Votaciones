@@ -1,0 +1,79 @@
+2025-07-03T15:20:17.755347 [DEBUG] Intento de registro de voto de 'Piranya69' con nota '%arg1%'.
+2025-07-03T15:20:17.756347 [DEBUG] Raw score argument received: '%arg1%' (type: <class 'str'>)
+2025-07-03T15:20:17.756347 [DEBUG] Stripped (aggressive) score argument before conversion: '%arg1%' (type: <class 'str'>)
+2025-07-03T15:20:17.757346 [DEBUG] ValueError: No se pudo convertir '%arg1%' a float. Detalles de la excepción: (<class 'ValueError'>, ValueError("could not convert string to float: '%arg1%'"), <traceback object at 0x0000014AF06EB400>)
+2025-07-03T15:54:35.240565 [DEBUG] Intento de registro de voto de 'Piranya69' con raw_input_score_string: '7'.
+2025-07-03T15:54:35.241564 [DEBUG] Raw score argument received: '7' (type: <class 'str'>)
+2025-07-03T15:54:35.243565 [DEBUG] Extraído score de raw_input_score_string: '7' (type: <class 'str'>)
+2025-07-03T15:54:35.245564 [DEBUG] current_movie_info loaded: {'title': 'E.T. el extraterrestre', 'year': '1982', 'tmdb_id': 601, 'poster_url': 'https://image.tmdb.org/t/p/w185/4kixNqJAu7hWpZOnOsznL7YPuuQ.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:54:10.935606'}
+2025-07-03T15:54:35.263557 [DEBUG] @Piranya69 tu voto con nota 7.0 para la película E.T. el extraterrestre que estamos viendo ahora ha sido registrado con éxito. Puedes consultar el historial de películas en: https://piravision.github.io/Votaciones/
+2025-07-03T15:54:35.266557 [DEBUG] Stripped (aggressive) score argument before conversion: '7' (type: <class 'str'>)
+2025-07-03T15:54:35.272571 [DEBUG] current_movie_info loaded: {'title': 'E.T. el extraterrestre', 'year': '1982', 'tmdb_id': 601, 'poster_url': 'https://image.tmdb.org/t/p/w185/4kixNqJAu7hWpZOnOsznL7YPuuQ.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:54:10.935606'}
+2025-07-03T15:54:35.273554 [DEBUG] @Piranya69, ¡Ya has votado por 'E.T. el extraterrestre' en esta sesión! Tu voto ya está registrado. 👍
+2025-07-03T15:55:37.263710 [DEBUG] Intento de registro de voto de 'Piranya69' con raw_input_score_string: '8'.
+2025-07-03T15:55:37.264709 [DEBUG] Raw score argument received: '8' (type: <class 'str'>)
+2025-07-03T15:55:37.265709 [DEBUG] Extraído score de raw_input_score_string: '8' (type: <class 'str'>)
+2025-07-03T15:55:37.269709 [DEBUG] current_movie_info loaded: {'title': 'Zathura: Una aventura espacial', 'year': '2005', 'tmdb_id': 6795, 'poster_url': 'https://image.tmdb.org/t/p/w185/8ePd8jBizl04Di7N4VnhD5tXSCo.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:55:21.055624'}
+2025-07-03T15:55:37.288701 [DEBUG] @Piranya69 tu voto con nota 8.0 para la película Zathura: Una aventura espacial que estamos viendo ahora ha sido registrado con éxito. Puedes consultar el historial de películas en: https://piravision.github.io/Votaciones/
+2025-07-03T15:55:37.293700 [DEBUG] Stripped (aggressive) score argument before conversion: '8' (type: <class 'str'>)
+2025-07-03T15:55:37.299699 [DEBUG] current_movie_info loaded: {'title': 'Zathura: Una aventura espacial', 'year': '2005', 'tmdb_id': 6795, 'poster_url': 'https://image.tmdb.org/t/p/w185/8ePd8jBizl04Di7N4VnhD5tXSCo.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:55:21.055624'}
+2025-07-03T15:55:37.300698 [DEBUG] @Piranya69, ¡Ya has votado por 'Zathura: Una aventura espacial' en esta sesión! Tu voto ya está registrado. 👍
+2025-07-03T15:56:41.014034 [DEBUG] Intento de registro de voto de 'Afr0samuray' con raw_input_score_string: '9'.
+2025-07-03T15:56:41.015031 [DEBUG] Raw score argument received: '9' (type: <class 'str'>)
+2025-07-03T15:56:41.016031 [DEBUG] Extraído score de raw_input_score_string: '9' (type: <class 'str'>)
+2025-07-03T15:56:41.018030 [DEBUG] current_movie_info loaded: {'title': 'Zathura: Una aventura espacial', 'year': '2005', 'tmdb_id': 6795, 'poster_url': 'https://image.tmdb.org/t/p/w185/8ePd8jBizl04Di7N4VnhD5tXSCo.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:55:21.055624'}
+2025-07-03T15:56:41.044022 [DEBUG] @Afr0samuray tu voto con nota 9.0 para la película Zathura: Una aventura espacial que estamos viendo ahora ha sido registrado con éxito. Puedes consultar el historial de películas en: https://piravision.github.io/Votaciones/
+2025-07-03T15:56:41.049020 [DEBUG] Stripped (aggressive) score argument before conversion: '9' (type: <class 'str'>)
+2025-07-03T15:56:41.056022 [DEBUG] current_movie_info loaded: {'title': 'Zathura: Una aventura espacial', 'year': '2005', 'tmdb_id': 6795, 'poster_url': 'https://image.tmdb.org/t/p/w185/8ePd8jBizl04Di7N4VnhD5tXSCo.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:55:21.055624'}
+2025-07-03T15:56:41.057020 [DEBUG] @Afr0samuray, ¡Ya has votado por 'Zathura: Una aventura espacial' en esta sesión! Tu voto ya está registrado. 👍
+2025-07-03T15:58:37.852624 [DEBUG] Intento de registro de voto de 'GaldorCID' con raw_input_score_string: 'pira'.
+2025-07-03T15:58:37.852624 [DEBUG] Raw score argument received: 'pira' (type: <class 'str'>)
+2025-07-03T15:58:37.853623 [DEBUG] No se encontró un número válido en raw_input_score_string: 'pira'.
+2025-07-03T15:58:48.132032 [DEBUG] Intento de registro de voto de 'GaldorCID' con raw_input_score_string: '-2'.
+2025-07-03T15:58:48.132032 [DEBUG] Raw score argument received: '-2' (type: <class 'str'>)
+2025-07-03T15:58:48.133032 [DEBUG] No se encontró un número válido en raw_input_score_string: '-2'.
+2025-07-03T15:59:11.134975 [DEBUG] Intento de registro de voto de 'GaldorCID' con raw_input_score_string: '10,3203023'.
+2025-07-03T15:59:11.135974 [DEBUG] Raw score argument received: '10,3203023' (type: <class 'str'>)
+2025-07-03T15:59:11.136974 [DEBUG] No se encontró un número válido en raw_input_score_string: '10,3203023'.
+2025-07-03T15:59:12.054193 [DEBUG] Intento de registro de voto de 'Afr0samuray' con raw_input_score_string: '10'.
+2025-07-03T15:59:12.054193 [DEBUG] Raw score argument received: '10' (type: <class 'str'>)
+2025-07-03T15:59:12.055193 [DEBUG] Extraído score de raw_input_score_string: '10' (type: <class 'str'>)
+2025-07-03T15:59:12.057190 [DEBUG] current_movie_info loaded: {'title': 'Akira', 'year': '1988', 'tmdb_id': 149, 'poster_url': 'https://image.tmdb.org/t/p/w185/vjPt8HYymLOkRv82x9JwVO7M2a5.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:58:41.337814'}
+2025-07-03T15:59:12.076184 [DEBUG] @Afr0samuray tu voto con nota 10.0 para la película Akira que estamos viendo ahora ha sido registrado con éxito. Puedes consultar el historial de películas en: https://piravision.github.io/Votaciones/
+2025-07-03T15:59:12.079201 [DEBUG] Stripped (aggressive) score argument before conversion: '10' (type: <class 'str'>)
+2025-07-03T15:59:12.083182 [DEBUG] current_movie_info loaded: {'title': 'Akira', 'year': '1988', 'tmdb_id': 149, 'poster_url': 'https://image.tmdb.org/t/p/w185/vjPt8HYymLOkRv82x9JwVO7M2a5.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:58:41.337814'}
+2025-07-03T15:59:12.084182 [DEBUG] @Afr0samuray, ¡Ya has votado por 'Akira' en esta sesión! Tu voto ya está registrado. 👍
+2025-07-03T15:59:25.027636 [DEBUG] Intento de registro de voto de 'GaldorCID' con raw_input_score_string: '3,9'.
+2025-07-03T15:59:25.028635 [DEBUG] Raw score argument received: '3,9' (type: <class 'str'>)
+2025-07-03T15:59:25.029656 [DEBUG] No se encontró un número válido en raw_input_score_string: '3,9'.
+2025-07-03T15:59:33.561675 [DEBUG] Intento de registro de voto de 'GaldorCID' con raw_input_score_string: '3.9'.
+2025-07-03T15:59:33.562671 [DEBUG] Raw score argument received: '3.9' (type: <class 'str'>)
+2025-07-03T15:59:33.562671 [DEBUG] Extraído score de raw_input_score_string: '3.9' (type: <class 'str'>)
+2025-07-03T15:59:33.564676 [DEBUG] current_movie_info loaded: {'title': 'Akira', 'year': '1988', 'tmdb_id': 149, 'poster_url': 'https://image.tmdb.org/t/p/w185/vjPt8HYymLOkRv82x9JwVO7M2a5.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:58:41.337814'}
+2025-07-03T15:59:33.583645 [DEBUG] @GaldorCID tu voto con nota 3.9 para la película Akira que estamos viendo ahora ha sido registrado con éxito. Puedes consultar el historial de películas en: https://piravision.github.io/Votaciones/
+2025-07-03T15:59:33.586645 [DEBUG] Stripped (aggressive) score argument before conversion: '3.9' (type: <class 'str'>)
+2025-07-03T15:59:33.590643 [DEBUG] current_movie_info loaded: {'title': 'Akira', 'year': '1988', 'tmdb_id': 149, 'poster_url': 'https://image.tmdb.org/t/p/w185/vjPt8HYymLOkRv82x9JwVO7M2a5.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:58:41.337814'}
+2025-07-03T15:59:33.591645 [DEBUG] @GaldorCID, ¡Ya has votado por 'Akira' en esta sesión! Tu voto ya está registrado. 👍
+2025-07-03T16:00:25.802625 [DEBUG] Intento de registro de voto de 'Afr0samuray' con raw_input_score_string: '1'.
+2025-07-03T16:00:25.803605 [DEBUG] Raw score argument received: '1' (type: <class 'str'>)
+2025-07-03T16:00:25.804605 [DEBUG] Extraído score de raw_input_score_string: '1' (type: <class 'str'>)
+2025-07-03T16:00:25.806604 [DEBUG] current_movie_info loaded: {'title': 'Akira', 'year': '1988', 'tmdb_id': 149, 'poster_url': 'https://image.tmdb.org/t/p/w185/vjPt8HYymLOkRv82x9JwVO7M2a5.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:58:41.337814'}
+2025-07-03T16:00:25.807603 [DEBUG] @Afr0samuray, ¡Ya has votado por 'Akira' en esta sesión! Tu voto ya está registrado. 👍
+2025-07-03T16:00:46.331777 [DEBUG] Intento de registro de voto de 'Afr0samuray' con raw_input_score_string: '7'.
+2025-07-03T16:00:46.332776 [DEBUG] Raw score argument received: '7' (type: <class 'str'>)
+2025-07-03T16:00:46.333776 [DEBUG] Extraído score de raw_input_score_string: '7' (type: <class 'str'>)
+2025-07-03T16:00:46.336775 [DEBUG] current_movie_info loaded: {'title': 'Akira', 'year': '1988', 'tmdb_id': 149, 'poster_url': 'https://image.tmdb.org/t/p/w185/vjPt8HYymLOkRv82x9JwVO7M2a5.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:58:41.337814'}
+2025-07-03T16:00:46.337775 [DEBUG] @Afr0samuray, ¡Ya has votado por 'Akira' en esta sesión! Tu voto ya está registrado. 👍
+2025-07-03T16:00:58.456012 [DEBUG] Intento de registro de voto de 'Afr0samuray' con raw_input_score_string: '10'.
+2025-07-03T16:00:58.456992 [DEBUG] Raw score argument received: '10' (type: <class 'str'>)
+2025-07-03T16:00:58.457991 [DEBUG] Extraído score de raw_input_score_string: '10' (type: <class 'str'>)
+2025-07-03T16:00:58.459992 [DEBUG] current_movie_info loaded: {'title': 'Akira', 'year': '1988', 'tmdb_id': 149, 'poster_url': 'https://image.tmdb.org/t/p/w185/vjPt8HYymLOkRv82x9JwVO7M2a5.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:58:41.337814'}
+2025-07-03T16:00:58.459992 [DEBUG] @Afr0samuray, ¡Ya has votado por 'Akira' en esta sesión! Tu voto ya está registrado. 👍
+2025-07-03T16:03:44.403714 [DEBUG] Intento de registro de voto de 'Huete86' con raw_input_score_string: '8.5'.
+2025-07-03T16:03:44.403714 [DEBUG] Raw score argument received: '8.5' (type: <class 'str'>)
+2025-07-03T16:03:44.404714 [DEBUG] Extraído score de raw_input_score_string: '8.5' (type: <class 'str'>)
+2025-07-03T16:03:44.406714 [DEBUG] current_movie_info loaded: {'title': 'Akira', 'year': '1988', 'tmdb_id': 149, 'poster_url': 'https://image.tmdb.org/t/p/w185/vjPt8HYymLOkRv82x9JwVO7M2a5.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:58:41.337814'}
+2025-07-03T16:03:44.424708 [DEBUG] @Huete86 tu voto con nota 8.5 para la película Akira que estamos viendo ahora ha sido registrado con éxito. Puedes consultar el historial de películas en: https://piravision.github.io/Votaciones/
+2025-07-03T16:03:44.426707 [DEBUG] Stripped (aggressive) score argument before conversion: '8.5' (type: <class 'str'>)
+2025-07-03T16:03:44.430725 [DEBUG] current_movie_info loaded: {'title': 'Akira', 'year': '1988', 'tmdb_id': 149, 'poster_url': 'https://image.tmdb.org/t/p/w185/vjPt8HYymLOkRv82x9JwVO7M2a5.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T15:58:41.337814'}
+2025-07-03T16:03:44.431705 [DEBUG] @Huete86, ¡Ya has votado por 'Akira' en esta sesión! Tu voto ya está registrado. 👍
