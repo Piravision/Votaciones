@@ -1,13 +1,6 @@
 {
     "current_calendar_month": "2025-07",
-    "current_movie_info": {
-        "title": "Zathura: Una aventura espacial",
-        "year": "2005",
-        "tmdb_id": 6795,
-        "poster_url": "https://image.tmdb.org/t/p/w185/8ePd8jBizl04Di7N4VnhD5tXSCo.jpg",
-        "time_slot": "Sobremesa",
-        "start_time": "2025-07-03T16:56:17.035764"
-    },
+    "current_movie_info": {},
     "votes_for_current_movie": {
         "total_score": 0,
         "num_votes": 0,
@@ -20,7 +13,7 @@
                 "title": "Zathura: Una aventura espacial",
                 "year": "2005",
                 "poster_url": "https://image.tmdb.org/t/p/w185/8ePd8jBizl04Di7N4VnhD5tXSCo.jpg",
-                "final_rating": 7.33,
+                "final_rating": 7.75,
                 "tmdb_id": 6795
             },
             "Noche de Cine": null
@@ -28,7 +21,8 @@
     },
     "global_user_votes": {
         "Piranya69": 1,
-        "Huete86": 1,
-        "ElRincondePeper": 1
+        "Huete86": 3,
+        "ElRincondePeper": 1,
+        "Rosahm1": 2
     }
 }

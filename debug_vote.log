@@ -92,3 +92,13 @@
 2025-07-03T16:51:28.830348 [DEBUG] Extraído score de raw_input_score_string: '6.5' (type: <class 'str'>)
 2025-07-03T16:51:28.832329 [DEBUG] current_movie_info loaded: {'title': 'Zathura: Una aventura espacial', 'year': '2005', 'tmdb_id': 6795, 'poster_url': 'https://image.tmdb.org/t/p/w185/8ePd8jBizl04Di7N4VnhD5tXSCo.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T16:46:16.049002'}
 2025-07-03T16:51:28.849886 [DEBUG] ¡Felicidades @ElRincondePeper! Has votado con un 6.5 a 'Zathura: Una aventura espacial'. Tu voto ha sido registrado. Puedes consultar la nota final de los Piraviewers y el historial de películas en: https://piravision.github.io/Votaciones/
+2025-07-03T17:03:37.532191 [DEBUG] Intento de registro de voto de 'Rosahm1' con raw_input_score_string: '7'.
+2025-07-03T17:03:37.532191 [DEBUG] Raw score argument received: '7' (type: <class 'str'>)
+2025-07-03T17:03:37.533191 [DEBUG] Extraído score de raw_input_score_string: '7' (type: <class 'str'>)
+2025-07-03T17:03:37.535191 [DEBUG] current_movie_info loaded: {'title': 'Zathura: Una aventura espacial', 'year': '2005', 'tmdb_id': 6795, 'poster_url': 'https://image.tmdb.org/t/p/w185/8ePd8jBizl04Di7N4VnhD5tXSCo.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T16:56:17.035764'}
+2025-07-03T17:03:37.554184 [DEBUG] ¡Felicidades @Rosahm1! Has votado con un 7.0 a 'Zathura: Una aventura espacial'. Tu voto ha sido registrado. Puedes consultar la nota final de los Piraviewers y el historial de películas en: https://piravision.github.io/Votaciones/
+2025-07-03T17:25:00.844143 [DEBUG] Intento de registro de voto de 'Huete86' con raw_input_score_string: '8.5'.
+2025-07-03T17:25:00.845144 [DEBUG] Raw score argument received: '8.5' (type: <class 'str'>)
+2025-07-03T17:25:00.846143 [DEBUG] Extraído score de raw_input_score_string: '8.5' (type: <class 'str'>)
+2025-07-03T17:25:00.848143 [DEBUG] current_movie_info loaded: {'title': 'Zathura: Una aventura espacial', 'year': '2005', 'tmdb_id': 6795, 'poster_url': 'https://image.tmdb.org/t/p/w185/8ePd8jBizl04Di7N4VnhD5tXSCo.jpg', 'time_slot': 'Sobremesa', 'start_time': '2025-07-03T16:56:17.035764'}
+2025-07-03T17:25:00.866643 [DEBUG] ¡Felicidades @Huete86! Has votado con un 8.5 a 'Zathura: Una aventura espacial'. Tu voto ha sido registrado. Puedes consultar la nota final de los Piraviewers y el historial de películas en: https://piravision.github.io/Votaciones/
