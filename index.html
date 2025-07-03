@@ -43,262 +43,915 @@
         .social-icons {
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 10px;
+            margin-top: 10px;
         }
 
-        .social-icons img {
-            width: 35px;
-            height: 35px;
-            transition: transform 0.2s;
+        .social-icons a {
+            color: #f4f4f4;
+            text-decoration: none;
+            font-size: 24px;
         }
 
-        .social-icons img:hover {
-            transform: scale(1.1);
-        }
-
-        /* Contenedor principal de la página, ahora flex para el calendario y la tabla de top votantes */
-        .main-content-wrapper {
+        .content-wrapper {
             display: flex;
-            flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
             justify-content: center;
-            gap: 20px; /* Espacio entre el calendario y la tabla */
-            width: 90%;
-            max-width: 1400px; /* Ajustado para dar espacio a la tabla lateral */
-            margin: auto;
+            flex-wrap: wrap;
             padding: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .container { /* Contenedor específico para el calendario */
-            flex: 3; /* Ocupa más espacio que la tabla de top votantes */
-            min-width: 700px; /* Ancho mínimo para el calendario */
-            background: rgba(255, 255, 255, 0.07);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
-        }
-        
-        @media (max-width: 1000px) { /* Para pantallas más pequeñas, se apilan */
-            .main-content-wrapper {
-                flex-direction: column;
-                align-items: center;
-            }
-            .container, .top-voters-card {
-                min-width: unset;
-                width: 100%; /* Ocupan todo el ancho disponible */
-            }
-        }
-
-        /* Si quieres un fondo borroso como en index.html, descomenta y adapta esta línea */
-        /* .background {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            filter: blur(15px) brightness(0.3);
-            background: url('URL_DE_TU_IMAGEN_DE_FONDO_PARA_CALENDARIO.JPG') no-repeat center center;
-            background-size: cover;
-        } */
-
-        /* Títulos de sección */
-        h1 {
-            color: #ff9900;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 2.2em;
-            border-bottom: 2px solid #ff9900;
-            padding-bottom: 10px;
-        }
-        .month-header {
-            font-size: 1.8em;
-            color: #00ff00;
-            text-align: center;
-            margin-bottom: 25px;
-            font-weight: bold;
-            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
-        }
-
-        /* Estilos de cuadrícula para el calendario */
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
-        .day-entry {
-            background: #1f1f1f;
+
+        .calendar-container {
+            flex: 3; /* Más espacio para el calendario */
+            min-width: 700px; /* Asegura un ancho mínimo */
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            box-sizing: border-box; /* Incluir padding en el ancho */
+        }
+
+        .calendar-header {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2em;
+            color: #e0e0e0;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .day-column {
+            background-color: #222;
             border-radius: 8px;
             padding: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            border: 1px solid #333;
-        }
-        .day-header {
-            font-size: 1.3em;
-            color: #ffcc00;
-            margin-bottom: 10px;
-            border-bottom: 2px solid #555;
-            padding-bottom: 8px;
-            font-weight: bold;
-        }
-        .slot-entry {
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px dashed #444;
-        }
-        .slot-entry:first-child {
-            border-top: none;
-            margin-top: 0;
-            padding-top: 0;
-        }
-        .slot-title {
-            font-size: 1.05em;
-            color: #aaffaa;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        .movie-info {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-top: 5px;
+            flex-direction: column;
+            gap: 15px;
         }
+
+        .day-header {
+            font-weight: bold;
+            font-size: 1.3em;
+            color: #fff;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #333;
+            margin-bottom: 15px;
+        }
+
+        .movie-slot {
+            background-color: #2c2c2c;
+            border-radius: 6px;
+            padding: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: #ccc;
+        }
+        
+        /* Estilos para diferenciar Sobremesa y Noche de Cine */
+        .slot-sobremesa {
+            border: 2px solid #5a5a5a;
+            background-color: #2c2c2c;
+        }
+
+        .slot-noche {
+            border: 2px solid #6a6a6a;
+            background-color: #383838;
+        }
+
+        .slot-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #f4f4f4;
+            margin-bottom: 5px;
+            text-align: center;
+            border-bottom: 1px dashed #444;
+            padding-bottom: 5px;
+        }
+
+        .movie-card {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background-color: #333; /* Fondo para la tarjeta de la película */
+            padding: 8px;
+            border-radius: 5px;
+        }
+
         .movie-poster {
             width: 70px;
-            height: auto;
+            height: 100px;
+            object-fit: cover;
             border-radius: 4px;
-            border: 1px solid #666;
-            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
+
         .movie-details {
             flex-grow: 1;
         }
-        .movie-details p {
-            margin: 0;
-            font-size: 0.95em;
-        }
-        .movie-details .title-year {
+
+        .title-year {
             font-weight: bold;
-            color: #f4f4f4;
-            margin-bottom: 3px;
+            color: #fff;
+            margin-bottom: 5px;
         }
-        .movie-details .rating {
-            color: #00ffff;
-            font-size: 1.05em;
+
+        .rating {
             font-weight: bold;
-            margin-top: 5px;
+            color: #8bff8b; /* Verde claro para la nota */
         }
-        /* Nuevo estilo para los votantes extremos */
-        .voter-extreme {
-            font-size: 0.85em;
-            color: #cccccc;
-            margin-top: 2px;
-        }
+
         .no-content {
+            text-align: center;
             font-style: italic;
             color: #888;
-            font-size: 0.9em;
-            margin-left: 5px;
-        }
-        /* Enlaces de navegación */
-        .nav-links {
-            text-align: center;
-            margin-top: 30px;
-        }
-        .nav-links a {
-            color: #ff9900;
-            text-decoration: none;
-            font-size: 1.2em;
-            margin: 0 15px;
-            padding: 8px 15px;
-            border: 1px solid #ff9900;
-            border-radius: 5px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .nav-links a:hover {
-            background-color: #ff9900;
-            color: #0c0c0c;
+            padding: 10px;
         }
 
-        /* Estilos para la tabla de votantes destacados */
-        .top-voters-card {
-            flex: 1; /* Ocupa menos espacio que el calendario */
-            min-width: 250px; /* Ancho mínimo para la tabla */
-            background: rgba(255, 255, 255, 0.07);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
-            align-self: flex-start; /* Alinea la tarjeta arriba */
+        .voter-details {
+            margin-top: 10px;
+            padding-top: 5px;
+            border-top: 1px dashed #444;
+            font-size: 0.9em;
+            color: #bbb;
         }
+        .voter-details p {
+            margin: 3px 0;
+        }
+        .voter-details .highlight {
+            font-weight: bold;
+            color: #f0f0f0;
+        }
+
+        .top-voters-card {
+            flex: 1; /* Menos espacio para los top voters */
+            min-width: 300px; /* Ancho mínimo para que no se vea demasiado pequeño */
+            max-width: 400px; /* Ancho máximo para que no ocupe demasiado */
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            box-sizing: border-box;
+            height: fit-content; /* Ajustar altura al contenido */
+            position: sticky; /* Se mantiene al hacer scroll */
+            top: 20px; /* Distancia desde la parte superior */
+        }
+        
+        @media (max-width: 1000px) {
+            .content-wrapper {
+                flex-direction: column;
+                align-items: center; /* Centrar elementos cuando son columna */
+            }
+            .calendar-container,
+            .top-voters-card {
+                min-width: unset; /* Reset mínimo para móviles */
+                width: 100%; /* Ocupar todo el ancho disponible */
+                max-width: 700px; /* Máximo ancho para no estirarse demasiado en pantallas grandes */
+            }
+            .top-voters-card {
+                position: static; /* Desactivar sticky en pantallas pequeñas */
+            }
+        }
+
 
         .top-voters-card h2 {
-            color: #ff9900;
-            font-size: 1.4rem;
-            border-bottom: 2px solid #ff9900;
-            padding-bottom: 10px;
-            margin-top: 0;
+            text-align: center;
+            color: #e0e0e0;
             margin-bottom: 15px;
+            font-size: 1.8em;
         }
 
         .top-voters-list {
             list-style: none;
             padding: 0;
-            margin: 0;
         }
 
         .top-voters-list li {
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
-            border-bottom: 1px dashed #333;
+            border-bottom: 1px solid #222;
         }
 
         .top-voters-list li:last-child {
             border-bottom: none;
         }
 
-        .top-voters-list .voter-name {
-            color: #f4f4f4;
+        .voter-name {
             font-weight: bold;
+            color: #fff;
         }
 
-        .top-voters-list .vote-count {
-            color: #00ffff;
-            font-weight: bold;
+        .vote-count {
+            color: #aaa;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background-color: #1f1f1f;
+            color: #777;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="logo-container">
-            <img src="https://cdn.streamelements.com/uploads/fa3fe2b3-134b-4288-bfef-29948befc05f.png" alt="Logo" class="logo">
+            <img src="https://piravision.github.io/Votaciones/unnamed.jpg" alt="PIRAVISION Logo" class="logo">
         </div>
         <div class="social-icons">
-            <a href="https://www.twitch.tv/piravision" target="_blank">
-                <img src="https://cdn.streamelements.com/uploads/4e340b43-7b0e-4bad-81d4-197c233827c4.png" alt="Twitch">
-            </a>
-            <a href="https://kick.com/piravision" target="_blank">
-                <img src="https://cdn.streamelements.com/uploads/9e660f91-49cb-476f-b328-8a1e5d9706ae.png" alt="Kick">
-            </a>
-            <a href="https://discord.gg/7VEzeTy55R" target="_blank">
-                <img src="https://cdn.streamelements.com/uploads/e731c1a0-344f-432d-bbf8-0590844f7e25.png" alt="Discord">
-            </a>
-            <a href="https://x.com/PiraVision" target="_blank">
-                <img src="https://cdn.streamelements.com/uploads/aecdfafd-fb1e-41d7-91ff-cc7d5cb34a32.png" alt="X (Twitter)">
-            </a>
-            <a href="https://t.me/+UD7ZygM3MrlhNjg0" target="_blank">
-                <img src="https://cdn.streamelements.com/uploads/16594692-335f-470e-9beb-fd542023ec96.png" alt="Telegram">
-            </a>
+            <a href="https://www.twitch.tv/piravision_tv" target="_blank">Twitch</a>
+            <a href="https://twitter.com/piravision_tv" target="_blank">Twitter</a>
+            <a href="https://www.instagram.com/piravision_tv" target="_blank">Instagram</a>
         </div>
     </div>
 
-    <div class="main-content-wrapper">
-        <div class="container">
-            <h1>Historial de Votaciones</h1>
-            <div class="month-header">Julio 2025</div>
-            
+    <div class="content-wrapper">
+        <div class="calendar-container">
+            <h1 class="calendar-header">Calendario de Películas - Julio 2025</h1>
             <div class="calendar-grid">
+                
+                <div class="day-column">
+                    <h3 class="day-header">Martes, 01 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Miã©rcoles, 02 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Jueves, 03 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <div class="movie-card">
+                            
+                            <img src="https://image.tmdb.org/t/p/w185/4kixNqJAu7hWpZOnOsznL7YPuuQ.jpg" alt="Póster de E.T. el extraterrestre" class="movie-poster">
+                            
+                            <div class="movie-details">
+                                <p class="title-year">E.T. el extraterrestre (1982)</p>
+                                <p>Votación de los Piraviewers: <span class="rating">9.0</span></p>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+
+                                
+
+                                
+                                <div class="voter-details">
+                                    <p>No hay votos individuales registrados.</p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Viernes, 04 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Sã¡bado, 05 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Domingo, 06 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Lunes, 07 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Martes, 08 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Miã©rcoles, 09 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Jueves, 10 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Viernes, 11 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Sã¡bado, 12 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Domingo, 13 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Lunes, 14 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Martes, 15 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Miã©rcoles, 16 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Jueves, 17 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Viernes, 18 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Sã¡bado, 19 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Domingo, 20 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Lunes, 21 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Martes, 22 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Miã©rcoles, 23 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Jueves, 24 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Viernes, 25 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Sã¡bado, 26 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Domingo, 27 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Lunes, 28 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Martes, 29 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Miã©rcoles, 30 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-column">
+                    <h3 class="day-header">Jueves, 31 de Julio</h3>
+                    
+                    <div class="movie-slot slot-sobremesa">
+                        <div class="slot-title">Sobremesa</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="movie-slot slot-noche">
+                        <div class="slot-title">Noche de Cine</div>
+                        
+                        
+                        <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
                 
             </div>
 
