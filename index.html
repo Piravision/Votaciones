@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario de Películas Votadas - Agosto 2025</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0c0c0c;
+            color: #f4f4f4;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #1f1f1f;
+            padding: 10px 20px;
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            max-height: 160px;
+            height: auto;
+            width: auto;
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                max-height: 120px;
+            }
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .social-icons img {
+            width: 35px;
+            height: 35px;
+            transition: transform 0.2s;
+        }
+
+        .social-icons img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Contenedor principal de la página, ahora flex para el calendario y la tabla de top votantes */
+        .main-content-wrapper {
+            display: flex;
+            flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+            justify-content: center;
+            gap: 20px; /* Espacio entre el calendario y la tabla */
+            width: 90%;
+            max-width: 1400px; /* Ajustado para dar espacio a la tabla lateral */
+            margin: auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container { /* Contenedor específico para el calendario */
+            flex: 3; /* Ocupa más espacio que la tabla de top votantes */
+            min-width: 700px; /* Ancho mínimo para el calendario */
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+        }
+        
+        @media (max-width: 1000px) { /* Para pantallas más pequeñas, se apilan */
+            .main-content-wrapper {
+                flex-direction: column;
+                align-items: center;
+            }
+            .container, .top-voters-card {
+                min-width: unset;
+                width: 100%; /* Ocupan todo el ancho disponible */
+            }
+        }
+
+        /* Si quieres un fondo borroso como en index.html, descomenta y adapta esta línea */
+        /* .background {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            filter: blur(15px) brightness(0.3);
+            background: url('URL_DE_TU_IMAGEN_DE_FONDO_PARA_CALENDARIO.JPG') no-repeat center center;
+            background-size: cover;
+        } */
+
+        /* Títulos de sección */
+        h1 {
+            color: #ff9900;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.2em;
+            border-bottom: 2px solid #ff9900;
+            padding-bottom: 10px;
+        }
+        .month-header {
+            font-size: 1.8em;
+            color: #00ff00;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+        }
+
+        /* Estilos de cuadrícula para el calendario */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .day-entry {
+            background: #1f1f1f;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+        }
+        .day-header {
+            font-size: 1.3em;
+            color: #ffcc00;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #555;
+            padding-bottom: 8px;
+            font-weight: bold;
+        }
+        .slot-entry {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px dashed #444;
+        }
+        .slot-entry:first-child {
+            border-top: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        .slot-title {
+            font-size: 1.05em;
+            color: #aaffaa;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .movie-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-top: 5px;
+        }
+        .movie-poster {
+            width: 70px;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #666;
+            flex-shrink: 0;
+        }
+        .movie-details {
+            flex-grow: 1;
+        }
+        .movie-details p {
+            margin: 0;
+            font-size: 0.95em; /* Tamaño base para la mayoría de los textos */
+        }
+        .movie-details .title-year {
+            font-weight: bold;
+            color: #f4f4f4;
+            font-size: 1.2em; /* Título de la película más grande */
+            border-bottom: 1px solid #555; /* Línea divisoria */
+            padding-bottom: 5px; /* Espacio entre el título y la línea */
+            margin-bottom: 8px; /* Espacio entre la línea y el siguiente párrafo */
+        }
+        .movie-details .rating {
+            color: #00ffff;
+            font-size: 1.05em; /* ligeramente más grande que el texto base */
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .no-content {
+            font-style: italic;
+            color: #888;
+            font-size: 0.9em;
+            margin-left: 5px;
+        }
+        /* Enlaces de navegación */
+        .nav-links {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .nav-links a {
+            color: #ff9900;
+            text-decoration: none;
+            font-size: 1.2em;
+            margin: 0 15px;
+            padding: 8px 15px;
+            border: 1px solid #ff9900;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .nav-links a:hover {
+            background-color: #ff9900;
+            color: #0c0c0c;
+        }
+
+        /* Estilos para la tabla de votantes destacados */
+        .top-voters-card {
+            flex: 1; /* Ocupa menos espacio que el calendario */
+            min-width: 250px; /* Ancho mínimo para la tabla */
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+            align-self: flex-start; /* Alinea la tarjeta arriba */
+        }
+
+        .top-voters-card h2 {
+            color: #ff9900;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #ff9900;
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .top-voters-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .top-voters-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #333;
+        }
+
+        .top-voters-list li:last-child {
+            border-bottom: none;
+        }
+
+        .top-voters-list .voter-name {
+            color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        .top-voters-list .vote-count {
+            color: #00ffff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-container">
+            <a href="https://piravision.github.io/App/" target="_blank">
+				<img src="https://cdn.streamelements.com/uploads/fa3fe2b3-134b-4288-bfef-29948befc05f.png" alt="Logo" class="logo">
+        </div>
+        <div class="social-icons">
+            <a href="https://www.twitch.tv/piravision" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/4e340b43-7b0e-4bad-81d4-197c233827c4.png" alt="Twitch">
+            </a>
+            <a href="https://kick.com/piravision" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/9e660f91-49cb-476f-b328-8a1e5d9706ae.png" alt="Kick">
+            </a>
+            <a href="https://discord.gg/7VEzeTy55R" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/e731c1a0-344f-432d-bbf8-0590844f7e25.png" alt="Discord">
+            </a>
+            <a href="https://x.com/PiraVision" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/aecdfafd-fb1e-41d7-91ff-cc7d5cb34a32.png" alt="X (Twitter)">
+            </a>
+            <a href="https://t.me/+UD7ZygM3MrlhNjg0" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/16594692-335f-470e-9beb-fd542023ec96.png" alt="Telegram">
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content-wrapper">
+        <div class="container">
+            <h1>Historial de Votaciones</h1>
+            <div class="month-header">Agosto 2025</div>
+            
+            <div class="calendar-grid">
+                
+                <div class="day-entry">
+                    <div class="day-header">Viernes, 01</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/epFP29rGrLPseuKxpz3mGKr23Do.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Terminagolf (1996)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.81</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="top-score">9.3</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Afr0samuray</span> (<span class="low-score">8.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/zSzDbylthJBPL4YX0khc9Sr6sew.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Crank: Veneno en la sangre (2006)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.8</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Coto</span> (<span class="top-score">8.8</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Huete86</span> (<span class="low-score">6.8</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/25H2JzYmsBG5869h0bxkShDyov1.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Crank: Alto Voltaje (2009)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.7</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Coto</span> (<span class="top-score">8.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">GaldorCID</span> (<span class="low-score">7.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Sã¡bado, 02</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/zdvw34l1lInfOPh5dOURt41BPmF.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Virgen a los 40 (2005)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.4</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Srsuricat0</span> (<span class="top-score">9.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Rosahm1</span> (<span class="low-score">6.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/sYHRcd9p3rV3t3w8MHGaA7wdIBl.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Acorralado (1982)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.9</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">9.8</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Afr0samuray</span> (<span class="low-score">6.8</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/TuW7rwhdVPrm3qBsBGnn747Uar.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Rambo: Acorralado Parte II (1985)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.9</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">9.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Weapons89</span> (<span class="low-score">6.8</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/69iGRVnOi62ZK2ExoJl12tnvH0T.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Rambo III (1988)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.42</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">8.9</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="low-score">6.3</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Domingo, 03</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/gkcT1QmvspJ34rKgFUvv0ho0VrD.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Men in Black (Hombres de negro) (1997)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.39</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Coto</span> (<span class="top-score">9.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Huete86</span> (<span class="low-score">6.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/zX1Hi0j7Yn4jv2eDHyIMlHP8lDb.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Hombres de negro II (2002)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">6.32</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">8.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Rosahm1</span> (<span class="low-score">4.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/oR4abG9GX5Ztj8Svw3uAuIJeyBi.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Dead or Alive (2006)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">6.4</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">GaldorCID</span> (<span class="top-score">7.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Huete86</span> (<span class="low-score">4.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Lunes, 04</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/cowPjNTci3mXasaXp0j9o54VqAW.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Armas invencibles (Police Story) (1985)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.35</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">9.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Miguel_Torrezno</span> (<span class="low-score">7.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/y36XqY64lMEWBJ65ZxrYD2aMMQ3.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">American Samurai (1992)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">6.7</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">8.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Archah</span> (<span class="low-score">5.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/kHGryC1UwsVYW7DMTF7nzVUx9mV.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">El rey de los kickboxers (1990)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.1</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">8.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="low-score">6.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Martes, 05</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/zlw0YXWYu1aGn7oWJWQ06qpS1Tq.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Supercop (Police Story 3) (1992)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.3</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">9.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Miguel_Torrezno</span> (<span class="low-score">7.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/mXRoB1yWjLk3vEPH68sML1BBgjm.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Jet Li es el mejor luchador (1994)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.5</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">8.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Afr0samuray</span> (<span class="low-score">6.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/fk91HsTrtYdiab29HEaduHtyh9v.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Ley marcial (1990)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.0</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Archah</span> (<span class="top-score">8.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">GaldorCID</span> (<span class="low-score">6.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Miã©rcoles, 06</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/pjto3zbasNrpwQvHK4SzWwSecIG.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Impacto inminente (1996)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.8</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Srsuricat0</span> (<span class="top-score">8.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Afr0samuray</span> (<span class="low-score">7.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/qGWgNZSsxSc1GWL9tUBaThV2MWr.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Little Tokyo: Ataque Frontal (1991)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.2</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">8.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Miguel_Torrezno</span> (<span class="low-score">6.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/xA105F7IqQDtyDhLR3yuJz7XX1o.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Campeón de campeones (1989)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.6</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="top-score">8.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Weapons89</span> (<span class="low-score">6.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Jueves, 07</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/r34w8z6H08lKMfCAXsYLr47ORD2.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">City hunter (1993)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.5</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">GaldorCID</span> (<span class="top-score">8.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Archah</span> (<span class="low-score">6.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/ssZnHf4cPRJGpQGv9unW8B76nrb.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Operación Dragón (1973)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.2</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">9.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Huete86</span> (<span class="low-score">7.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/sMSPeec7sDXl0JBvCtJtVThbIP.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Retroceder nunca, rendirse jamás (1986)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.1</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="top-score">8.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Weapons89</span> (<span class="low-score">6.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Viernes, 08</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/2JalaaK8ohnACUSGFcFAKthUiPn.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Operación trueno (1995)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.5</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Coto</span> (<span class="top-score">8.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Archah</span> (<span class="low-score">6.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/utkAPHidRG4j87vmcA9TfGsD7pz.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Contacto sangriento (1988)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.1</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">9.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Afr0samuray</span> (<span class="low-score">7.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/iWbOhQ5ixU37c3VqWpjEfxQf838.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Kickboxer (1989)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.8</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Srsuricat0</span> (<span class="top-score">8.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">GaldorCID</span> (<span class="low-score">7.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/a4hFYes3Jnf4G1CXtBh8lRB3eAf.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">The Quest: En busca de la ciudad perdida (1996)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.4</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="top-score">8.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Miguel_Torrezno</span> (<span class="low-score">6.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Sã¡bado, 09</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/zWHpCti0TWpU9g3HkmIShIjnYhW.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Duro de matar (1995)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.7</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">8.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Weapons89</span> (<span class="low-score">7.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/qupC1Jxss4YH5Y2ZeIB4XXokGcd.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Karate Kid, el momento de la verdad (1984)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.2</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Afr0samuray</span> (<span class="top-score">9.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Huete86</span> (<span class="low-score">7.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/fOfjKdFdzDbbArgxk1sOLpQ211g.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Karate Kid II, la historia continúa (1986)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.5</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">GaldorCID</span> (<span class="top-score">8.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Archah</span> (<span class="low-score">7.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/1vpDcoILmWHuqd2HNFMncSEuIyV.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Karate Kid III. El desafío final (1989)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">6.8</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="top-score">7.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Miguel_Torrezno</span> (<span class="low-score">6.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Domingo, 10</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/1HTFEi2aifnmNMWYb5amvyAG86z.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Shanghai Kid, del este al oeste (2000)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.6</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Srsuricat0</span> (<span class="top-score">8.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Weapons89</span> (<span class="low-score">7.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/bPSlJNIHrmhjKrOocQbKjWBbyOT.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Los rebeldes de Shanghai (2003)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.2</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">8.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Archah</span> (<span class="low-score">6.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/t86vNoMVV6kuvayzzQ0mC48ak02.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">La salchicha peleona (1997)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.0</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">8.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">GaldorCID</span> (<span class="low-score">6.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/wf7vOel5EvjWfjql8XUPaDVc1es.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Kung Pow: A puñetazo limpio (2002)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.5</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="top-score">8.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Weapons89</span> (<span class="low-score">6.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Lunes, 11</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/hved3sxwOe24eZCiDRnqom7wODm.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Su distinguida señoría (1992)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.1</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Miguel_Torrezno</span> (<span class="top-score">8.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Afr0samuray</span> (<span class="low-score">6.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/rKJHQVzmFtmmGcdQPqShwAdvJ1G.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">El coleccionista de huesos (1999)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.9</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Srsuricat0</span> (<span class="top-score">9.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Huete86</span> (<span class="low-score">7.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Martes, 12</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/obXfrcnYvjPoBGw8thSyPAZOxCy.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Río salvaje (1994)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.0</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">8.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Huete86</span> (<span class="low-score">8.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/bqZYshYcNIrYA8cQCaST2zZZNn2.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Los ríos de color púrpura (2000)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.47</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">9.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Weapons89</span> (<span class="low-score">7.9</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Miã©rcoles, 13</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/8S2OxDnkJd44yFeUF8iRfqA1xV2.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Vaya par de locos (1998)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.0</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">7.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="low-score">6.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/6MLQ5ehGD3b8E0JZ9K2G4cZeFaI.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Alien: Resurrección (1997)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.79</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Miguel_Torrezno</span> (<span class="top-score">9.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Afr0samuray</span> (<span class="low-score">6.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Jueves, 14</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/rxgvvm3j2jA4Flh2k9Hrvq2T7Vs.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Le llaman Bodhi (1991)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.75</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Afr0samuray</span> (<span class="top-score">9.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Huete86</span> (<span class="low-score">8.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/i9mQEM8dzl5vklW6VEqlONdbUJk.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">El coleccionista de amantes (1997)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.43</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">9.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Weapons89</span> (<span class="low-score">6.8</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/zoBu6UHcVukHksDXtmBb2jJnFkp.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">La hora de la araña (2001)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.06</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">8.9</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Weapons89</span> (<span class="low-score">6.8</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Viernes, 15</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/3w0gebKKFXEN8Eou0xlLeAkNKdA.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Colegas a la fuerza (1991)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.22</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">8.9</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="low-score">7.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/uVPcVz4b2hnSGrXYLdIGRXwcivs.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Seven (1995)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">9.74</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Afr0samuray</span> (<span class="top-score">10.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Weapons89</span> (<span class="low-score">9.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/gmoypdRU7rCJZZrZFKGirONbgrI.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Zodiac (2007)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">9.5</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Archah</span> (<span class="top-score">9.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Archah</span> (<span class="low-score">9.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/gmoypdRU7rCJZZrZFKGirONbgrI.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Zodiac (2007)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.67</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">9.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="low-score">8.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Sã¡bado, 16</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/pOtJyjyCjhOcfBnQG8vIZ6Q2y2A.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Zoolander (Un descerebrado de moda) (2001)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.47</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Afr0samuray</span> (<span class="top-score">8.9</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="low-score">8.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/8FdQQ3cUCs9goEOr1qUFaHackoJ.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">El silencio de los corderos (1991)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">9.62</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Afr0samuray</span> (<span class="top-score">10.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Huete86</span> (<span class="low-score">8.7</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/v5wAZwRqpGWmyAaaJ8BBHYuNXnj.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Hannibal (2001)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">8.66</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">9.8</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="low-score">8.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Domingo, 17</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/kuCVtkWApDxOTsEyMeCWonEt7qI.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Cortocircuito (1986)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">9.35</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">9.7</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Afr0samuray</span> (<span class="low-score">9.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/kuCVtkWApDxOTsEyMeCWonEt7qI.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Cortocircuito (1986)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">9.0</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">lordzanu</span> (<span class="top-score">10.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="low-score">8.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/w9GNBKn3FNLbhl8CmNOq5El0Ekf.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Cortocircuito 2 (1988)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">6.67</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">7.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Alvaropt11</span> (<span class="low-score">5.5</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/5IP1ZSwlarptocq9FcafzrCwGTR.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">El vengador tóxico (1984)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">5.44</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">ElRincondePeper</span> (<span class="top-score">10.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Rosahm1</span> (<span class="low-score">0.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/m5o7B3VSAjvinjtSYxXD38senvb.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">El vengador tóxico II (1989)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">5.75</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">6.5</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Weapons89</span> (<span class="low-score">5.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Lunes, 18</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/q0C8Ht69rB8bffzA7RkIMrRQRBm.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">El secreto de Joey (1985)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.3</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Huete86</span> (<span class="top-score">9.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">El_Retro_Visor_k</span> (<span class="low-score">5.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/x1l1vC446IM89iD3wBaQc3erp9Z.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">Daredevil (2003)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">6.12</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Miguel_Torrezno</span> (<span class="top-score">7.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Weapons89</span> (<span class="low-score">5.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Martes, 19</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            
+                                <div class="movie-info">
+                                    
+                                    <img src="https://image.tmdb.org/t/p/w185/q0C8Ht69rB8bffzA7RkIMrRQRBm.jpg" alt="Póster de la película" class="movie-poster">
+                                    
+                                    <div class="movie-details">
+                                        <p class="title-year">El secreto de Joey (1985)</p>
+                                        <p><strong>Votación de los Piraviewers:</strong> <span class="rating">7.0</span></p>
+                                        
+                                        <p class="voter-highlight"><strong>Mejor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="top-score">7.0</span>)</p>
+                                        
+                                        
+                                        <p class="voter-highlight"><strong>Peor voto:</strong> <span class="voter-name">Piranya69</span> (<span class="low-score">7.0</span>)</p>
+                                        
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Miã©rcoles, 20</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Jueves, 21</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Viernes, 22</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Sã¡bado, 23</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Domingo, 24</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Lunes, 25</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Martes, 26</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Miã©rcoles, 27</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Jueves, 28</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Viernes, 29</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Sã¡bado, 30</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="day-entry">
+                    <div class="day-header">Domingo, 31</div>
+                    
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Sobremesa:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                    <div class="slot-entry">
+                        <div class="slot-title">Noche de Cine:</div>
+                        
+                            <p class="no-content">No hay contenido programado.</p>
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+
+            <div class="nav-links">
+                </div>
+        </div>
+
+        <div class="top-voters-card">
+            <h2>Votantes Destacados</h2>
+            <ul class="top-voters-list">
+                
+                    
+                        <li>
+<<<<<<< HEAD
+                            <span class="voter-name">Huete86</span>
+                            <span class="vote-count">119 votos</span>
+                        </li>
+                    
+                        <li>
+                            <span class="voter-name">Alvaropt11</span>
+                            <span class="vote-count">97 votos</span>
+                        </li>
+                    
+                        <li>
+                            <span class="voter-name">Afr0samuray</span>
+                            <span class="vote-count">91 votos</span>
+                        </li>
+                    
+                        <li>
+                            <span class="voter-name">Piranya69</span>
+                            <span class="vote-count">82 votos</span>
+                        </li>
+                    
+                        <li>
+                            <span class="voter-name">Miguel_Torrezno</span>
+                            <span class="vote-count">68 votos</span>
+                        </li>
+                    
+                        <li>
+                            <span class="voter-name">Weapons89</span>
+                            <span class="vote-count">47 votos</span>
+                        </li>
+                    
+                        <li>
+                            <span class="voter-name">Archah</span>
+                            <span class="vote-count">44 votos</span>
+                        </li>
+                    
+                        <li>
+                            <span class="voter-name">srsuricat0</span>
+                            <span class="vote-count">42 votos</span>
+                        </li>
+                    
+                        <li>
+                            <span class="voter-name">Rosahm1</span>
+                            <span class="vote-count">32 votos</span>
+                        </li>
+                    
+                        <li>
+                            <span class="voter-name">Alukardss</span>
+                            <span class="vote-count">27 votos</span>
+=======
+                            <span class="voter-name">Piranya69</span>
+                            <span class="vote-count">1 votos</span>
+>>>>>>> b2dca57 (Actualización automática de calendario e index.html para 'El secreto de Joey (1985)')
+                        </li>
+                    
+                
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>PIRAVISION APP</p>
+    </div>
+</body>
+</html>
